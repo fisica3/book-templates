@@ -10,7 +10,7 @@ steps:
   - bash: az bicep build --file ./Chapter_07/deployment/trafficmgr.bicep
     displayName: "Transpile Traffic Manager Bicep"
 
-  - bash: ls .\Chapter_07
+  - bash: ls '.\Chapter_07'
     displayName: "Lista componentes .\Chapter_07"  
 
   - task: CopyFiles@2
