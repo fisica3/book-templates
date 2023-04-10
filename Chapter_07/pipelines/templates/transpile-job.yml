@@ -4,10 +4,10 @@ parameters:
     default: "arm-templates"
 
 steps:
-  - bash: az bicep build --file ./deployment/main.bicep
+  - bash: az bicep build --file ./Chapter_07/deployment/main.bicep
     displayName: "Transpile Main Bicep"
 
-  - bash: az bicep build --file ./deployment/trafficmgr.bicep
+  - bash: az bicep build --file ./Chapter_07/deployment/trafficmgr.bicep
     displayName: "Transpile Traffic Manager Bicep"
 
   - task: CopyFiles@2
