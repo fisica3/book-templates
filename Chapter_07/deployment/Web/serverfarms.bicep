@@ -1,5 +1,6 @@
 param systemName string
 param environmentName string
+param location string = resourceGroup().location
 @allowed([
   'we' // West europe
   'us' // East US (1)
@@ -9,9 +10,9 @@ param locationAbbriviation string
 
 var serverFarmName = '${systemName}-${environmentName}-${locationAbbriviation}-plan'
 
-resource serverFarm 'Microsoft.Web/serverfarms@2021-01-01' = {
+resource serverFarm 'Microsoft.Web/serverfarms@2022-03-01' = {
   name: serverFarmName
-  location: resourceGroup().location
+  location: location
   kind: 'app'
   sku: {
     name: 'B1'

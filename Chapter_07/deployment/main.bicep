@@ -2,6 +2,7 @@ targetScope = 'subscription'
 
 param systemName string
 param environmentName string
+param location string = deployment().location
 @allowed([
   'we' // West europe
   'us' // East US (1)
@@ -10,7 +11,7 @@ param environmentName string
 param locationAbbriviation string
 
 resource targetResourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
-  location: deployment().location
+  location: location
   name: '${systemName}-${environmentName}-${locationAbbriviation}'
 }
 

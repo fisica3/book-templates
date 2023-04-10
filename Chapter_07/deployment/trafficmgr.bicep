@@ -1,6 +1,7 @@
 targetScope = 'subscription'
 
 param systemName string = 'tomatoe'
+param location string = deployment().location
 
 @allowed([
   'dev'
@@ -10,9 +11,9 @@ param systemName string = 'tomatoe'
 ])
 param environmentName string
 
-resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
+resource resourceGroup 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   name: '${systemName}-${environmentName}'
-  location: deployment().location
+  location: location
 }
 
 module trafficManagerModule 'Network/trafficmanagerprofiles.bicep' = {
