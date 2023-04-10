@@ -10,7 +10,7 @@ steps:
   - bash: az bicep build --file ./Chapter_07/deployment/trafficmgr.bicep
     displayName: "Transpile Traffic Manager Bicep"
 
-  - bash: ls ./Chapter_07
+  - bash: ls ./Chapter_07/deployment
     displayName: "Lista componentes 07"  
 
   - task: CopyFiles@2
@@ -19,6 +19,9 @@ steps:
       SourceFolder: "./Chapter_07/deployment"
       Contents: "**/.json"
       TargetFolder: "$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}"
+
+  - bash: ls "$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}"
+    displayName: "Lista componentes Artifact"         
 
   - task: PublishPipelineArtifact@1
     displayName: "Publish Pipeline Artifact"
