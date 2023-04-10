@@ -8,6 +8,8 @@ stages:
       - job: publishbicep
         displayName: Publish bicep files as pipeline artifacts
         steps:
+          - bash: ls
+            displayName: "Lista componentes"
           - template: ./templates/transpile-job.yml
 
   - stage: deployinfratest
