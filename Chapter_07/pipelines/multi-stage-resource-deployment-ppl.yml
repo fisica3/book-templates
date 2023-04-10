@@ -1,5 +1,5 @@
 trigger:
-  - main
+  - bicepazdo
 
 stages:
   - stage: build
@@ -19,8 +19,8 @@ stages:
         steps:
           - template: ./templates/deploy-arm.yml
             parameters:
-              seriviceConnectionName: "TestEnvironment"
-              subscriptionId: "<your-subscription-id>"
+              seriviceConnectionName: "scAzureSponsorshipForBicep"
+              subscriptionId: "89f21b48-2a5e-477c-ac88-c9cbb8401024"
               environmentName: "test"
               location: "westus"
               locationAbbriviation: "us"
