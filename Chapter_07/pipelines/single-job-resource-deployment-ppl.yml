@@ -25,10 +25,11 @@ jobs:
       - task: AzureResourceManagerTemplateDeployment@3
         displayName: Deploy Main Template
         inputs:
+          deploymentScope: 'Subscription'
           azureResourceManagerConnection: '$(azureServiceConnection)'
-          deploymentScope: "Subscription"
           location: '$(location)'
-          templateLocation: "Linked artifact"
+          templateLocation: 'Linked artifact'
           csmFile: '$(templateFile)'
-          csmParametersFile: "./Chapter_07/deployment/test.parameters.json"
-          deploymentMode: "Incremental"
+          csmParametersFile: './Chapter_07/deployment/test.parameters.json'
+          deploymentMode: 'Incremental'
+          deploymentName: 'DeployPipelineTemplate'
