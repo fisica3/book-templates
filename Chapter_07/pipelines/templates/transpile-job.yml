@@ -18,8 +18,8 @@ steps:
     inputs:
       SourceFolder: './Chapter_07/deployment'
       Contents: | 
-        '**/*.json'
-        '**/*.bicep'
+        **/*.json
+        **/*.bicep
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
   - publish: '$(Build.ArtifactStagingDirectory)'
