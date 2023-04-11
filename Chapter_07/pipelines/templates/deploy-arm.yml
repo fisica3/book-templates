@@ -40,7 +40,7 @@ steps:
       azureResourceManagerConnection: "${{ parameters.seriviceConnectionName }}"
       location: ${{ parameters.location }}
       templateLocation: 'Linked artifact'
-      csmFile: '$(templateFile)'
+      csmFile: "$(System.ArtifactsDirectory)/${{ parameters.artifactName }}/main.bicep"
       csmParametersFile: "$(System.ArtifactsDirectory)/${{ parameters.artifactName }}/${{parameters.environmentName}}.parameters.json"
       overrideParameters: -locationAbbriviation ${{parameters.locationAbbriviation}}
       deploymentMode: 'Incremental'

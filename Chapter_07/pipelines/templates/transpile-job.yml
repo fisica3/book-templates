@@ -4,11 +4,11 @@ parameters:
     default: "arm-templates"
 
 steps:
-  - bash: az bicep build --file ./Chapter_07/deployment/main.bicep
-    displayName: "Transpile Main Bicep"
+#  - bash: az bicep build --file ./Chapter_07/deployment/main.bicep
+#    displayName: "Transpile Main Bicep"
 
-  - bash: az bicep build --file ./Chapter_07/deployment/trafficmgr.bicep
-    displayName: "Transpile Traffic Manager Bicep"
+#  - bash: az bicep build --file ./Chapter_07/deployment/trafficmgr.bicep
+#    displayName: "Transpile Traffic Manager Bicep"
 
   - bash: ls ./Chapter_07/deployment
     displayName: "Lista componentes 07"  
@@ -17,7 +17,9 @@ steps:
     displayName: "Copy JSON files to: $(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}"
     inputs:
       SourceFolder: './Chapter_07/deployment'
-      Contents: '**/*.json'
+      Contents: | 
+        '**/*.json'
+        '**/*.bicep'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
   - publish: '$(Build.ArtifactStagingDirectory)'
@@ -26,7 +28,7 @@ steps:
     
   - download: current
     artifact: "${{parameters.artifactName}}"
-    patterns: '**/*.json'
+    patterns: '**/*.*'
     
   - bash: ls "$(Build.ArtifactStagingDirectory)/"
     displayName: "Lista componentes Artifact"         
