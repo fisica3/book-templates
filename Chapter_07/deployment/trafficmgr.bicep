@@ -1,6 +1,6 @@
 targetScope = 'subscription'
 
-param systemName string = 'mora'
+param systemName string = 'cacao'
 param location string = deployment().location
 
 @allowed([

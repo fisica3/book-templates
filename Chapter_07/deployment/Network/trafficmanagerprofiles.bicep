@@ -29,7 +29,7 @@ resource trafficManager 'Microsoft.Network/trafficmanagerprofiles@2018-08-01' = 
     endpoints: [
       {
         name: 'eur'
-        type: 'Microsoft.Network/trafficManagerProfiles/externalEndpoints'
+        type: 'Microsoft.Network/trafficManagerProfiles/AzureEndpoints'
         properties: {
           target: '${systemName}-${environmentName}-we-app.azurewebsites.net'
           weight: 1
@@ -42,7 +42,7 @@ resource trafficManager 'Microsoft.Network/trafficmanagerprofiles@2018-08-01' = 
       }
       {
         name: 'asi'
-        type: 'Microsoft.Network/trafficManagerProfiles/externalEndpoints'
+        type: 'Microsoft.Network/trafficManagerProfiles/AzureEndpoints'
         properties: {
           target: '${systemName}-${environmentName}-asi-app.azurewebsites.net'
           weight: 1
@@ -57,7 +57,7 @@ resource trafficManager 'Microsoft.Network/trafficmanagerprofiles@2018-08-01' = 
       }
       {
         name: 'global'
-        type: 'Microsoft.Network/trafficManagerProfiles/externalEndpoints'
+        type: 'Microsoft.Network/trafficManagerProfiles/AzureEndpoints'
         properties: {
           target: '${systemName}-${environmentName}-us-app.azurewebsites.net'
           weight: 1
