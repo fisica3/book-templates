@@ -20,15 +20,28 @@ steps:
       artifactName: "${{ parameters.artifactName }}"
       targetPath: $(System.ArtifactsDirectory)/${{ parameters.artifactName }}
 
+  #- task: AzureResourceManagerTemplateDeployment@3
+  #  displayName: Deploy Main Template
+  #  inputs:
+  #    azureResourceManagerConnection: "${{ parameters.seriviceConnectionName }}"
+  #    deploymentScope: "Subscription"
+  #    subscriptionId: "${{ parameters.subscriptionId }}"
+  #    location: ${{ parameters.location }}
+  #    templateLocation: "Linked artifact"
+  #    csmFile: "$(System.ArtifactsDirectory)/${{ parameters.artifactName }}/main.json"
+  #    csmParametersFile: "$(System.ArtifactsDirectory)/${{ parameters.artifactName }}/${{parameters.environmentName}}.parameters.json"
+  #    overrideParameters: -locationAbbriviation ${{parameters.locationAbbriviation}}
+  #    deploymentMode: "Incremental"
+
   - task: AzureResourceManagerTemplateDeployment@3
     displayName: Deploy Main Template
     inputs:
+      deploymentScope: 'Subscription'
       azureResourceManagerConnection: "${{ parameters.seriviceConnectionName }}"
-      deploymentScope: "Subscription"
-      subscriptionId: "${{ parameters.subscriptionId }}"
       location: ${{ parameters.location }}
-      templateLocation: "Linked artifact"
-      csmFile: "$(System.ArtifactsDirectory)/${{ parameters.artifactName }}/main.json"
+      templateLocation: 'Linked artifact'
+      csmFile: '$(templateFile)'
       csmParametersFile: "$(System.ArtifactsDirectory)/${{ parameters.artifactName }}/${{parameters.environmentName}}.parameters.json"
       overrideParameters: -locationAbbriviation ${{parameters.locationAbbriviation}}
-      deploymentMode: "Incremental"
+      deploymentMode: 'Incremental'
+      deploymentName: 'DeployPipelineTemplate'      
