@@ -20,11 +20,19 @@ steps:
       Contents: "**/.json"
       TargetFolder: "$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}"
 
-  - bash: ls "$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}"
-    displayName: "Lista componentes Artifact"         
+    - publish: '$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}'
+      displayName: 'Publish JSON'
+      artifact: drop      
+    
+    - download: current
+      artifact: drop
+      patterns: '**/*.json'
+    
+  #- bash: ls "$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}"
+  #  displayName: "Lista componentes Artifact"         
 
-  - task: PublishPipelineArtifact@1
-    displayName: "Publish Pipeline Artifact"
-    inputs:
-      targetPath: "$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}"
-      artifact: "${{parameters.artifactName}}"
+  #- task: PublishPipelineArtifact@1
+  #  displayName: "Publish Pipeline Artifact"
+  #  inputs:
+  #    targetPath: "$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}"
+  #    artifact: "${{parameters.artifactName}}"
