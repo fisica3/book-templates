@@ -18,9 +18,9 @@ steps:
     inputs:
       SourceFolder: './Chapter_07/deployment'
       Contents: '**/.json'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-  - publish: '$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}'
+  - publish: '$(Build.ArtifactStagingDirectory)'
     displayName: 'Publish JSON'
     artifact: drop      
     
