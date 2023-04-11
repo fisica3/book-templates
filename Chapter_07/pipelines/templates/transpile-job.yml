@@ -16,9 +16,9 @@ steps:
   - task: CopyFiles@2
     displayName: "Copy JSON files to: $(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}"
     inputs:
-      SourceFolder: "./Chapter_07/deployment"
-      Contents: "**/.json"
-      TargetFolder: "$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}"
+      SourceFolder: './Chapter_07/deployment'
+      Contents: '**/.json'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}'
 
   - publish: '$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}'
     displayName: 'Publish JSON'
