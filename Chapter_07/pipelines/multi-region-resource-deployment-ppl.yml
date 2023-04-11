@@ -1,12 +1,12 @@
 trigger:
-  - main
+  - bicepazdo
 
 variables:
-  TestSubscriptionId: "<your-subscription-id>"
-  TestServiceConnectionName: "TestEnvironment"
+  TestSubscriptionId: "89f21b48-2a5e-477c-ac88-c9cbb8401024"
+  TestServiceConnectionName: "scAzureSponsorshipForBicep"
 
-  ProdSubscriptionId: "<your-subscription-id>"
-  ProdServiceConnectionName: "ProductionEnvironment"
+  ProdSubscriptionId: "54a2dff3-7c83-413e-9911-9f21a039e595"
+  ProdServiceConnectionName: "scVSSubscriptionForBicep"
 
 stages:
   - stage: build

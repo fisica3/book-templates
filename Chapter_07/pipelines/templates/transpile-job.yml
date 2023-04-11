@@ -4,12 +4,6 @@ parameters:
     default: "arm-templates"
 
 steps:
-#  - bash: az bicep build --file ./Chapter_07/deployment/main.bicep
-#    displayName: "Transpile Main Bicep"
-
-#  - bash: az bicep build --file ./Chapter_07/deployment/trafficmgr.bicep
-#    displayName: "Transpile Traffic Manager Bicep"
-
   - bash: ls ./Chapter_07/deployment
     displayName: "Lista componentes 07"  
 
@@ -32,9 +26,3 @@ steps:
     
   - bash: ls "$(Build.ArtifactStagingDirectory)/"
     displayName: "Lista componentes Artifact"         
-
-#  - task: PublishPipelineArtifact@1
-#    displayName: "Publish Pipeline Artifact"
-#    inputs:
-#      targetPath: "$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}"
-#      artifact: "${{parameters.artifactName}}"
