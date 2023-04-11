@@ -20,13 +20,13 @@ steps:
       Contents: "**/.json"
       TargetFolder: "$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}"
 
-    - publish: '$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}'
-      displayName: 'Publish JSON'
-      artifact: drop      
+  - publish: '$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}'
+    displayName: 'Publish JSON'
+    artifact: drop      
     
-    - download: current
-      artifact: drop
-      patterns: '**/*.json'
+  - download: current
+    artifact: drop
+    patterns: '**/*.json'
     
   #- bash: ls "$(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}"
   #  displayName: "Lista componentes Artifact"         
