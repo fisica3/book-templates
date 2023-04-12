@@ -44,3 +44,4 @@ jobs:
             $value=$var.webid.value
             Write-Host "##vso[task.setvariable variable=webid;]$value"
           FailOnStandardError: true
+          azurePowerShellVersion: 'LatestVersion'
