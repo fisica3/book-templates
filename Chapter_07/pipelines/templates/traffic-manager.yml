@@ -44,4 +44,4 @@ steps:
     inputs:
       targetType: inline
       script: |
-        echo "el asiWebAppIdId es = $(parameters.asiWebAppId)"   
+        echo "el asiWebAppIdId es = ${{parameters.asiWebAppId}}"   
