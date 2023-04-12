@@ -45,3 +45,10 @@ jobs:
             Write-Host "##vso[task.setvariable variable=webAppId;]$value"
           FailOnStandardError: true
           azurePowerShellVersion: 'LatestVersion'
+
+      - task: Bash@3
+        displayName: Output in the same job
+        inputs:
+          targetType: inline
+          script: |
+            echo "el Id es = $(webAppId)"          
