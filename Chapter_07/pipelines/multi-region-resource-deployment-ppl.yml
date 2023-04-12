@@ -33,7 +33,6 @@ stages:
         displayName: Deploy infra to US region test
         steps:
           - template: ./templates/deploy-arm.yml
-            name: deployus
             parameters:
               seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
               subscriptionId: ${{ variables.TestSubscriptionId }}
@@ -54,7 +53,6 @@ stages:
         dependsOn: deploy_us_test
         steps:
           - template: ./templates/deploy-arm.yml
-            name: deployeur
             parameters:
               seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
               subscriptionId: ${{ variables.TestSubscriptionId }}
@@ -75,7 +73,6 @@ stages:
         dependsOn: deploy_eur_test
         steps:
           - template: ./templates/deploy-arm.yml
-            name: deployasia
             parameters:
               seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
               subscriptionId: ${{ variables.TestSubscriptionId }}
@@ -100,7 +97,7 @@ stages:
             inputs:
               targetType: inline
               script: |
-                echo "el Asi Id es = $(deploy_asia_test.deployasia.asiWebAppId)"         
+                echo "el Asi Id es = $(deploy_asia_test.asiWebAppId)"         
           - template: ./templates/traffic-manager.yml
             parameters:
               seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
