@@ -8,8 +8,6 @@ variables:
   ProdSubscriptionId: "54a2dff3-7c83-413e-9911-9f21a039e595"
   ProdServiceConnectionName: "scVSSubscriptionForBicep"
 
-  usWebAppId: "webAppId"
-
 stages:
   - stage: build
     displayName: Publish Bicep Files
@@ -25,6 +23,9 @@ stages:
 
     variables:
       environmentName: "test"
+      usWebAppId: "webAppId"
+      weWebAppId: "webAppId"
+      asiWebAppId: "webAppId"
 
     jobs:
       - job: deploy_us_test
@@ -57,4 +58,34 @@ stages:
               location: "westeurope"
               locationAbbriviation: "we"
               environmentName: ${{ variables.environmentName }}
+          - bash: |
+              echo "##vso[task.setvariable variable=variables.weWebAppId;]$(webAppId)"  
+
+      - job: deploy_asia_test
+        displayName: Deploy infra to ASIA region test
+        dependsOn: deploy_eur_test
+        steps:
+          - template: ./templates/deploy-arm.yml
+            parameters:
+              seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
+              subscriptionId: ${{ variables.TestSubscriptionId }}
+              location: "eastasia"
+              locationAbbriviation: "asi"
+              environmentName: ${{ variables.environmentName }}
+          - bash: |
+              echo "##vso[task.setvariable variable=variables.asiWebAppId;]$(webAppId)"               
+
+      - job: deploy_trafficmgr_test
+        displayName: Deploy traffic manager test
+        dependsOn: deploy_asia_test
+        steps:
+          - template: ./templates/traffic-manager.yml
+            parameters:
+              seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
+              subscriptionId: ${{ variables.TestSubscriptionId }}
+              location: "westeurope"
+              environmentName: ${{ variables.environmentName }}
+              usWebAppId: ${{ variables.usWebAppId }}
+              weWebAppId: ${{ variables.weWebAppId }}
+              asiWebAppId: ${{ variables.asiWebAppId }}
 

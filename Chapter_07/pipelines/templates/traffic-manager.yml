@@ -13,6 +13,12 @@ parameters:
     default: "arm-templates"
   - name: location
     type: string
+  - name: usWebAppId
+    type: string
+  - name: weWebAppId
+    type: string
+  - name: asiWebAppId
+    type: string           
 
 steps:
   - task: DownloadPipelineArtifact@0
@@ -31,4 +37,11 @@ steps:
       templateLocation: 'Linked artifact'
       csmFile: "$(System.ArtifactsDirectory)/${{ parameters.artifactName }}/trafficmgr.bicep"      
       overrideParameters: -environmentName ${{parameters.environmentName}}
-      deploymentMode: 'Incremental'      
+      deploymentMode: 'Incremental' 
+
+  - task: Bash@3
+    displayName: Output in other file
+    inputs:
+      targetType: inline
+      script: |
+        echo "el asiWebAppIdId es = $(parameters.asiWebAppId)"   
