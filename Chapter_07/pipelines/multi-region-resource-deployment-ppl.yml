@@ -106,5 +106,5 @@ stages:
               environmentName: ${{ variables.environmentName }}
               usWebAppId: ${{ variables.usWebAppId }}
               weWebAppId: ${{ variables.weWebAppId }}
-              asiWebAppId: ${{ deployasia.asiWebAppId }}
+              asiWebAppId: ${{ variables.asiWebAppId }}
 
