@@ -38,3 +38,6 @@ module webApplicationModule 'Web/sites.bicep' = {
     serverFarmId: appServicePlanModule.outputs.serverFarmId
   }
 }
+
+output WebAppId string = webApplicationModule.outputs.webAppId
+output WebAppName string = webApplicationModule.outputs.webAppName
