@@ -100,7 +100,7 @@ stages:
             inputs:
               targetType: inline
               script: |
-                echo "el Asi Id es = $(deployasia.asiWebAppId)"         
+                echo "el Asi Id es = $(deploy_asia_test.deployasia.asiWebAppId)"         
           - template: ./templates/traffic-manager.yml
             parameters:
               seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
