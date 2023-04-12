@@ -29,10 +29,11 @@ stages:
 
 
     jobs:
-      - job: deploy_us_test
+      - job: deploy_us_test              
         displayName: Deploy infra to US region test
         steps:
           - template: ./templates/deploy-arm.yml
+            name: deployus
             parameters:
               seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
               subscriptionId: ${{ variables.TestSubscriptionId }}
@@ -40,19 +41,20 @@ stages:
               locationAbbriviation: "us"
               environmentName: ${{ variables.environmentName }}
           - bash: |
-              echo "##vso[task.setvariable variable=variables.usWebAppId;]$(webAppId)"              
+              echo "##vso[task.setvariable variable=usWebAppId;]$(webAppId)"              
           - task: Bash@3
             displayName: Output in the same job 1
             inputs:
               targetType: inline
               script: |
-                echo "el Id es = $(variables.usWebAppId)"                
+                echo "el Id es = $(usWebAppId)"                
 
       - job: deploy_eur_test
         displayName: Deploy infra to EUR region test
         dependsOn: deploy_us_test
         steps:
           - template: ./templates/deploy-arm.yml
+            name: deployeur
             parameters:
               seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
               subscriptionId: ${{ variables.TestSubscriptionId }}
@@ -60,19 +62,20 @@ stages:
               locationAbbriviation: "we"
               environmentName: ${{ variables.environmentName }}
           - bash: |
-              echo "##vso[task.setvariable variable=variables.weWebAppId;]$(webAppId)"  
+              echo "##vso[task.setvariable variable=weWebAppId;]$(webAppId)"  
           - task: Bash@3
             displayName: Output in the same job 2
             inputs:
               targetType: inline
               script: |
-                echo "el Id es = $(variables.weWebAppId)"                
+                echo "el Id es = $(weWebAppId)"                
 
       - job: deploy_asia_test
         displayName: Deploy infra to ASIA region test
         dependsOn: deploy_eur_test
         steps:
           - template: ./templates/deploy-arm.yml
+            name: deployasia
             parameters:
               seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
               subscriptionId: ${{ variables.TestSubscriptionId }}
@@ -80,13 +83,13 @@ stages:
               locationAbbriviation: "asi"
               environmentName: ${{ variables.environmentName }}
           - bash: |
-              echo "##vso[task.setvariable variable=variables.asiWebAppId;]$(webAppId)"       
+              echo "##vso[task.setvariable variable=asiWebAppId;]$(webAppId)"       
           - task: Bash@3
             displayName: Output in the same job 3
             inputs:
               targetType: inline
               script: |
-                echo "el Id es = $(variables.asiWebAppId)"                         
+                echo "el Id es = $(asiWebAppId)"                         
 
       - job: deploy_trafficmgr_test
         displayName: Deploy traffic manager test
@@ -97,7 +100,7 @@ stages:
             inputs:
               targetType: inline
               script: |
-                echo "el Asi Id es = $(variables.asiWebAppId)"         
+                echo "el Asi Id es = $(deployasia.asiWebAppId)"         
           - template: ./templates/traffic-manager.yml
             parameters:
               seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
@@ -106,5 +109,5 @@ stages:
               environmentName: ${{ variables.environmentName }}
               usWebAppId: ${{ variables.usWebAppId }}
               weWebAppId: ${{ variables.weWebAppId }}
-              asiWebAppId: ${{ variables.asiWebAppId }}
+              asiWebAppId: ${{ deployasia.asiWebAppId }}
 
