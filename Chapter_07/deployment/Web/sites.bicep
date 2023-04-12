@@ -22,3 +22,4 @@ resource webApp 'Microsoft.Web/sites@2022-03-01' = {
 }
 
 output webAppId string = webApp.id
+output webAppName string = webAppName
