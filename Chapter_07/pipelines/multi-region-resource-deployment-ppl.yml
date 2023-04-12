@@ -40,7 +40,7 @@ stages:
               locationAbbriviation: "us"
               environmentName: ${{ variables.environmentName }}
           - bash: |
-              echo "##vso[task.setvariable variable=usWebAppId;]$(webAppId)"              
+              echo "##vso[task.setvariable variable=usWebAppId;isOutput=true;]$(webAppId)"              
           - task: Bash@3
             displayName: Output in the same job 1
             inputs:
@@ -60,7 +60,7 @@ stages:
               locationAbbriviation: "we"
               environmentName: ${{ variables.environmentName }}
           - bash: |
-              echo "##vso[task.setvariable variable=weWebAppId;]$(webAppId)"  
+              echo "##vso[task.setvariable variable=weWebAppId;isOutput=true;]$(webAppId)"  
           - task: Bash@3
             displayName: Output in the same job 2
             inputs:
@@ -80,7 +80,7 @@ stages:
               locationAbbriviation: "asi"
               environmentName: ${{ variables.environmentName }}
           - bash: |
-              echo "##vso[task.setvariable variable=asiWebAppId;]$(webAppId)"       
+              echo "##vso[task.setvariable variable=asiWebAppId;isOutput=true;]$(webAppId)"       
           - task: Bash@3
             displayName: Output in the same job 3
             inputs:
@@ -91,13 +91,15 @@ stages:
       - job: deploy_trafficmgr_test
         displayName: Deploy traffic manager test
         dependsOn: deploy_asia_test
+        variables: 
+          someName: $[ dependencies.deploy_asia_test.outputs['setVariable.asiWebAppId'] ]
         steps:
           - task: Bash@3
             displayName: Output in another job
             inputs:
               targetType: inline
               script: |
-                echo "el Asi Id es = $(deploy_asia_test.asiWebAppId)"         
+                echo "el Asi Id es = $(someName)"         
           - template: ./templates/traffic-manager.yml
             parameters:
               seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
