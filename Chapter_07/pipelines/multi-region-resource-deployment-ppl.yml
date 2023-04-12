@@ -23,9 +23,9 @@ stages:
 
     variables:
       environmentName: "test"
-      usWebAppId: "webAppId"
-      weWebAppId: "webAppId"
-      asiWebAppId: "webAppId"
+      usWebAppId: "1webAppId"
+      weWebAppId: "2webAppId"
+      asiWebAppId: "3webAppId"
 
     jobs:
       - job: deploy_us_test
@@ -88,4 +88,9 @@ stages:
               usWebAppId: ${{ variables.usWebAppId }}
               weWebAppId: ${{ variables.weWebAppId }}
               asiWebAppId: ${{ variables.asiWebAppId }}
-
+          - task: Bash@3
+            displayName: Output in another job
+            inputs:
+              targetType: inline
+              script: |
+                echo "el Asi Id es = $(variables.asiWebAppId)" 
