@@ -31,3 +31,15 @@ steps:
       csmParametersFile: "$(System.ArtifactsDirectory)/${{ parameters.artifactName }}/${{parameters.environmentName}}.parameters.json"
       overrideParameters: -locationAbbriviation ${{parameters.locationAbbriviation}}
       deploymentMode: 'Incremental'
+      deploymentOutputs: 'salida'
+          
+  - task: AzurePowerShell@5
+    inputs:
+      azureSubscription: 'scAzureSponsorshipForBicep'
+      ScriptType: 'InlineScript'
+      Inline: |
+        $var=ConvertFrom-Json '$(salida)'
+        $value=$var.webAppId.value
+        Write-Host "##vso[task.setvariable variable=webAppId;]$value"
+      FailOnStandardError: true
+      azurePowerShellVersion: 'LatestVersion'      

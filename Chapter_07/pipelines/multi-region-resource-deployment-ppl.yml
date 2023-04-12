@@ -35,6 +35,12 @@ stages:
               location: "westus"
               locationAbbriviation: "us"
               environmentName: ${{ variables.environmentName }}
+          - task: Bash@3
+            displayName: Output in the same job
+            inputs:
+              targetType: inline
+              script: |
+                echo "el Id es = $(webAppId)"                
 
       - job: deploy_eur_test
         displayName: Deploy infra to EUR region test
