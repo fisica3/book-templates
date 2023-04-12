@@ -33,15 +33,15 @@ jobs:
           csmParametersFile: './Chapter_07/deployment/test.parameters.json'
           deploymentMode: 'Incremental'
           deploymentName: 'DeployPipelineTemplate'
-          deploymentOutputs: 'webid'
+          deploymentOutputs: 'salida'
           
       - task: AzurePowerShell@5
         inputs:
           azureSubscription: 'scAzureSponsorshipForBicep'
           ScriptType: 'InlineScript'
           Inline: |
-            $var=ConvertFrom-Json '$(webid)'
-            $value=$var.webid.value
-            Write-Host "##vso[task.setvariable variable=webid;]$value"
+            $var=ConvertFrom-Json '$(salida)'
+            $value=$var.webAppId.value
+            Write-Host "##vso[task.setvariable variable=webAppId;]$value"
           FailOnStandardError: true
           azurePowerShellVersion: 'LatestVersion'
