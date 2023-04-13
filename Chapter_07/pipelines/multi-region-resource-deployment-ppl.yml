@@ -73,15 +73,19 @@ stages:
         dependsOn: deploy_eur_test
         steps:
           - template: ./templates/deploy-arm.yml
-            name: setVariable
             parameters:
               seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
               subscriptionId: ${{ variables.TestSubscriptionId }}
               location: "eastasia"
               locationAbbriviation: "asi"
               environmentName: ${{ variables.environmentName }}
-          - bash: |
-              echo "##vso[task.setvariable variable=asiWebAppId;isOutput=true;]$(webAppId)"       
+          - task: Bash@3
+            name: asiWebAppId
+            displayName: Getting asiWebAppId
+            inputs:
+              targetType: 'inline'
+              script: |
+               echo "##vso[task.setvariable variable=asiWebAppId;isOutput=true;]$(webAppId)"       
           - task: Bash@3
             displayName: Output in the same job 3
             inputs:
