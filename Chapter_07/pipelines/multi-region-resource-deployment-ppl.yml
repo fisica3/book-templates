@@ -112,7 +112,7 @@ stages:
               subscriptionId: ${{ variables.TestSubscriptionId }}
               location: "westeurope"
               environmentName: ${{ variables.environmentName }}
-              usWebAppId: ${{ usWebAppId }}
-              weWebAppId: ${{ weWebAppId }}
-              asiWebAppId: ${{ asiWebAppId }}
+              usWebAppId: $(usWebAppId)
+              weWebAppId: $(weWebAppId)
+              asiWebAppId: $(asiWebAppId)
 
