@@ -80,7 +80,7 @@ stages:
               locationAbbriviation: "asi"
               environmentName: ${{ variables.environmentName }}
           - task: Bash@3
-            name: asiWebAppId
+            name: GetasiWebAppId
             displayName: Getting asiWebAppId
             inputs:
               targetType: 'inline'
@@ -91,13 +91,13 @@ stages:
             inputs:
               targetType: inline
               script: |
-                echo "el Id es = $(asiWebAppId)"                         
+                echo "el Id es = $(GetasiWebAppId.asiWebAppId)"                         
 
       - job: deploy_trafficmgr_test
         displayName: Deploy traffic manager test
         dependsOn: 'deploy_asia_test'
         variables: 
-          someName: $[ dependencies.deploy_asia_test.outputs['setVariable.asiWebAppId'] ]
+          someName: $[ dependencies.deploy_asia_test.outputs['GetasiWebAppId.asiWebAppId'] ]
         steps:
           - task: Bash@3
             displayName: Output in another job
@@ -105,13 +105,13 @@ stages:
               targetType: inline
               script: |
                 echo "el Asi Id es = $(someName)"         
-          - template: ./templates/traffic-manager.yml
-            parameters:
-              seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
-              subscriptionId: ${{ variables.TestSubscriptionId }}
-              location: "westeurope"
-              environmentName: ${{ variables.environmentName }}
-              usWebAppId: ${{ variables.usWebAppId }}
-              weWebAppId: ${{ variables.weWebAppId }}
-              asiWebAppId: ${{ variables.asiWebAppId }}
+#          - template: ./templates/traffic-manager.yml
+#            parameters:
+#              seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
+#              subscriptionId: ${{ variables.TestSubscriptionId }}
+#              location: "westeurope"
+#              environmentName: ${{ variables.environmentName }}
+#              usWebAppId: ${{ variables.usWebAppId }}
+#              weWebAppId: ${{ variables.weWebAppId }}
+#              asiWebAppId: ${{ variables.asiWebAppId }}
 
