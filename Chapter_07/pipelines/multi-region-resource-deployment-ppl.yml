@@ -39,8 +39,13 @@ stages:
               location: "westus"
               locationAbbriviation: "us"
               environmentName: ${{ variables.environmentName }}
-          - bash: |
-              echo "##vso[task.setvariable variable=usWebAppId;isOutput=true;]$(webAppId)"              
+          - task: Bash@3
+            name: GetusWebAppId
+            displayName: Getting weWebAppId
+            inputs:
+              targetType: 'inline'
+              script: |
+               echo "##vso[task.setvariable variable=usWebAppId;isOutput=true;]$(webAppId)"               
           - task: Bash@3
             displayName: Output in the same job 1
             inputs:
@@ -100,8 +105,12 @@ stages:
 
       - job: deploy_trafficmgr_test
         displayName: Deploy traffic manager test
-        dependsOn: 'deploy_asia_test'
+        dependsOn: 
+          - 'deploy_asia_test'
+          - 'deploy_eur_test'
+          - 'deploy_us_test'
         variables: 
+          usWebAppId: $[ dependencies.deploy_us_test.outputs['GetusWebAppId.usWebAppId'] ]
           weWebAppId: $[ dependencies.deploy_eur_test.outputs['GetweWebAppId.weWebAppId'] ]
           asiWebAppId: $[ dependencies.deploy_asia_test.outputs['GetasiWebAppId.asiWebAppId'] ]
         steps:
@@ -112,6 +121,7 @@ stages:
               script: |
                 echo "el Asi Id es = $(asiWebAppId)"    
                 echo "el We Id es = $(weWebAppId)"      
+                echo "el Us Id es = $(usWebAppId)"
 #          - template: ./templates/traffic-manager.yml
 #            parameters:
 #              seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
