@@ -8,9 +8,9 @@ param systemName string = 'tomatoe'
 ])
 param environmentName string
 
-param usWebAppId string = 'usWebAppId'
-param weWebAppId string = 'weWebAppId'
-param asiWebAppId string = 'asiWebAppId'
+param usWebAppId string
+param weWebAppId string
+param asiWebAppId string
 
 resource trafficManager 'Microsoft.Network/trafficmanagerprofiles@2022-04-01-preview' = {
   name: '${systemName}-${environmentName}'
