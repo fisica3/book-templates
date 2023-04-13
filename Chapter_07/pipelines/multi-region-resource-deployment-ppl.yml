@@ -66,13 +66,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-               echo "##vso[task.setvariable variable=weWebAppId;isOutput=true;]$(webAppId)"   
-          - task: Bash@3
-            displayName: Output in the same job 2
-            inputs:
-              targetType: inline
-              script: |
-                echo "el Id es = $(GetweWebAppId.weWebAppId)"                
+               echo "##vso[task.setvariable variable=weWebAppId;isOutput=true;]$(webAppId)"                
 
       - job: deploy_asia_test
         displayName: Deploy infra to ASIA region test
@@ -91,13 +85,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-               echo "##vso[task.setvariable variable=asiWebAppId;isOutput=true;]$(webAppId)"       
-          - task: Bash@3
-            displayName: Output in the same job 3
-            inputs:
-              targetType: inline
-              script: |
-                echo "el Id es = $(GetasiWebAppId.asiWebAppId)"                         
+               echo "##vso[task.setvariable variable=asiWebAppId;isOutput=true;]$(webAppId)"                            
 
       - job: deploy_trafficmgr_test
         displayName: Deploy traffic manager test
@@ -118,13 +106,13 @@ stages:
                 echo "el Asi Id es = $(asiWebAppId)"    
                 echo "el We Id es = $(weWebAppId)"      
                 echo "el Us Id es = $(usWebAppId)"
-#          - template: ./templates/traffic-manager.yml
-#            parameters:
-#              seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
-#              subscriptionId: ${{ variables.TestSubscriptionId }}
-#              location: "westeurope"
-#              environmentName: ${{ variables.environmentName }}
-#              usWebAppId: ${{ variables.usWebAppId }}
-#              weWebAppId: ${{ variables.weWebAppId }}
-#              asiWebAppId: ${{ variables.asiWebAppId }}
+          - template: ./templates/traffic-manager.yml
+            parameters:
+              seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
+              subscriptionId: ${{ variables.TestSubscriptionId }}
+              location: "westeurope"
+              environmentName: ${{ variables.environmentName }}
+              usWebAppId: ${{ usWebAppId }}
+              weWebAppId: ${{ weWebAppId }}
+              asiWebAppId: ${{ asiWebAppId }}
 
