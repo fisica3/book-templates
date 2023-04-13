@@ -12,7 +12,7 @@ param usWebAppId string = 'usWebAppId'
 param weWebAppId string = 'weWebAppId'
 param asiWebAppId string = 'asiWebAppId'
 
-resource trafficManager 'Microsoft.Network/trafficmanagerprofiles@2018-08-01' = {
+resource trafficManager 'Microsoft.Network/trafficmanagerprofiles@2022-04-01-preview' = {
   name: '${systemName}-${environmentName}'
   location: 'global'
   properties: {
@@ -33,9 +33,10 @@ resource trafficManager 'Microsoft.Network/trafficmanagerprofiles@2018-08-01' = 
     endpoints: [
       {
         name: 'eur'
-        type: 'Microsoft.Network/trafficManagerProfiles/externalEndpoints'
+        type: 'Microsoft.Network/trafficManagerProfiles/AzureEndpoints'
         properties: {
           target: '${systemName}-${environmentName}-we-app.azurewebsites.net'
+          targetResourceId: weWebAppId
           weight: 1
           priority: 1
           endpointLocation: 'West Europe'
@@ -46,9 +47,10 @@ resource trafficManager 'Microsoft.Network/trafficmanagerprofiles@2018-08-01' = 
       }
       {
         name: 'asi'
-        type: 'Microsoft.Network/trafficManagerProfiles/externalEndpoints'
+        type: 'Microsoft.Network/trafficManagerProfiles/AzureEndpoints'
         properties: {
           target: '${systemName}-${environmentName}-asi-app.azurewebsites.net'
+          targetResourceId: asiWebAppId
           weight: 1
           priority: 2
           endpointLocation: 'East Asia'
@@ -61,9 +63,10 @@ resource trafficManager 'Microsoft.Network/trafficmanagerprofiles@2018-08-01' = 
       }
       {
         name: 'global'
-        type: 'Microsoft.Network/trafficManagerProfiles/externalEndpoints'
+        type: 'Microsoft.Network/trafficManagerProfiles/AzureEndpoints'
         properties: {
           target: '${systemName}-${environmentName}-us-app.azurewebsites.net'
+          targetResourceId: usWebAppId
           weight: 1
           priority: 3
           endpointLocation: 'West US'
