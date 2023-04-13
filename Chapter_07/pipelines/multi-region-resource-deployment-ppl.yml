@@ -73,6 +73,7 @@ stages:
         dependsOn: deploy_eur_test
         steps:
           - template: ./templates/deploy-arm.yml
+            name: setVariable
             parameters:
               seriviceConnectionName: ${{ variables.TestServiceConnectionName }}
               subscriptionId: ${{ variables.TestSubscriptionId }}
@@ -90,7 +91,7 @@ stages:
 
       - job: deploy_trafficmgr_test
         displayName: Deploy traffic manager test
-        dependsOn: ['deploy_asia_test']
+        dependsOn: 'deploy_asia_test'
         variables: 
           someName: $[ dependencies.deploy_asia_test.outputs['setVariable.asiWebAppId'] ]
         steps:
