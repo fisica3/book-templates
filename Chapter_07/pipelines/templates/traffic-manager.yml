@@ -36,8 +36,9 @@ steps:
       subscriptionId: "${{ parameters.subscriptionId }}"
       templateLocation: 'Linked artifact'
       csmFile: "$(System.ArtifactsDirectory)/${{ parameters.artifactName }}/trafficmgr.bicep"      
-      overrideParameters: -environmentName ${{parameters.environmentName}}
+      overrideParameters: -environmentName ${{parameters.environmentName}} -usWebAppId ${{parameters.usWebAppId}} -weWebAppId ${{parameters.weWebAppId}} -asiWebAppId ${{parameters.asiWebAppId}}
       deploymentMode: 'Incremental' 
+ 
 
   - task: Bash@3
     displayName: Output in other file

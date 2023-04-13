@@ -8,6 +8,10 @@ param systemName string = 'tomatoe'
 ])
 param environmentName string
 
+param usWebAppId string = 'usWebAppId'
+param weWebAppId string = 'weWebAppId'
+param asiWebAppId string = 'asiWebAppId'
+
 resource trafficManager 'Microsoft.Network/trafficmanagerprofiles@2018-08-01' = {
   name: '${systemName}-${environmentName}'
   location: 'global'

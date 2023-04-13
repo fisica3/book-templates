@@ -1,7 +1,11 @@
 targetScope = 'subscription'
 
-param systemName string = 'lucuma'
+param systemName string = 'maracuya'
 param location string = deployment().location
+
+param usWebAppId string = 'usWebAppId'
+param weWebAppId string = 'weWebAppId'
+param asiWebAppId string = 'asiWebAppId'
 
 @allowed([
   'dev'
@@ -22,5 +26,8 @@ module trafficManagerModule 'Network/trafficmanagerprofiles.bicep' = {
   params: {
     systemName: systemName
     environmentName: environmentName
+    usWebAppId : usWebAppId
+    weWebAppId : weWebAppId
+    asiWebAppId : asiWebAppId
   }
 }
