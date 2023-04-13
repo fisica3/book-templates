@@ -206,5 +206,6 @@ stages:
               environmentName: ${{ variables.environmentName }}
               usWebAppId: $(usWebAppId)
               weWebAppId: $(weWebAppId)
-              asiWebAppId: $(asiWebAppId)                            
+              asiWebAppId: $(asiWebAppId)    
+              systemName: "mandarina"                        
 
