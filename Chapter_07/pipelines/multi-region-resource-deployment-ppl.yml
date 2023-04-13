@@ -7,9 +7,6 @@ variables:
 
   ProdSubscriptionId: "54a2dff3-7c83-413e-9911-9f21a039e595"
   ProdServiceConnectionName: "scVSSubscriptionForBicep"
-  #usWebAppId: "1webAppId"
-  #weWebAppId: "2webAppId"
-  #asiWebAppId: "3webAppId"  
 
 stages:
   - stage: build
@@ -25,8 +22,7 @@ stages:
     displayName: Deploy to test
 
     variables:
-      environmentName: "test"
-
+      environmentName: "test" 
 
     jobs:
       - job: deploy_us_test              
@@ -41,7 +37,7 @@ stages:
               environmentName: ${{ variables.environmentName }}
           - task: Bash@3
             name: GetusWebAppId
-            displayName: Getting weWebAppId
+            displayName: Getting usWebAppId
             inputs:
               targetType: 'inline'
               script: |
@@ -51,7 +47,7 @@ stages:
             inputs:
               targetType: inline
               script: |
-                echo "el Id es = $(usWebAppId)"                
+                echo "el Id es = $(GetusWebAppId.usWebAppId)"                
 
       - job: deploy_eur_test
         displayName: Deploy infra to EUR region test
