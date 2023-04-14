@@ -4,8 +4,8 @@ parameters:
     default: "arm-templates"
 
 steps:
-  - bash: ls ./Chapter_07/deployment
-    displayName: "Lista componentes 07"  
+#  - bash: ls ./Chapter_07/deployment
+#    displayName: "Lista componentes 07"  
 
   - task: CopyFiles@2
     displayName: "Copy JSON files to: $(Build.ArtifactStagingDirectory)/${{parameters.artifactName}}"
@@ -20,9 +20,9 @@ steps:
     displayName: 'Publish JSON'
     artifact: "${{parameters.artifactName}}"      
     
-  - download: current
-    artifact: "${{parameters.artifactName}}"
-    patterns: '**/*.*'
+#  - download: current
+#    artifact: "${{parameters.artifactName}}"
+#    patterns: '**/*.*'
     
-  - bash: ls "$(Build.ArtifactStagingDirectory)/"
-    displayName: "Lista componentes Artifact"         
+#  - bash: ls "$(Build.ArtifactStagingDirectory)/"
+#    displayName: "Lista componentes Artifact"         
