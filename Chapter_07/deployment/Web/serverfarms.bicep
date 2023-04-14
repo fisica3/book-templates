@@ -15,7 +15,7 @@ resource serverFarm 'Microsoft.Web/serverfarms@2022-03-01' = {
   location: location
   kind: 'app'
   sku: {
-    name: 'B1'
+    name: 'S1'
     capacity: 1
   }
 }
